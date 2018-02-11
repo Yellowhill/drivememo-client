@@ -13,7 +13,7 @@ const Container = styled.View`
 	margin-top: 50px;
 `;
 
-const LoginForm = props => {
+const LoginForm = (props) => {
 	return (
 		<KeyboardAvoidingView behavior="padding">
 			<Form>
@@ -42,20 +42,3 @@ const LoginForm = props => {
 };
 
 export default LoginForm;
-// export default reduxForm({
-//     form: 'loginForm'
-// })(LoginForm);
-/**
- *                     <Field 
-                        name='email'
-                        type='email'
-                        labelText='Sähköpostiosoite'
-                        component={FormTextInput}
-                    />
-                    <Field
-                        name='password'
-                        labelText='Salasana'
-                        secure={!this.props.showPassword}
-                        component={FormTextInput}
-                    />
- */

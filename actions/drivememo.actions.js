@@ -1,3 +1,4 @@
+import { apiUrl } from '../variables.js';
 import axios from 'axios';
 
 import {
@@ -98,7 +99,7 @@ export function driveAssEditTarget(assInfo) {
 
 export function editDriveAss(assInfo) {
 	//console.log('assinfo: ', assInfo);
-	return dispatch => {
+	return (dispatch) => {
 		dispatch(toggleDriveAssEdit());
 		dispatch(driveAssEditTarget(assInfo));
 	};
@@ -112,7 +113,7 @@ export function updateEditTarget(value, field) {
 	};
 }
 
-export const saveDriveAssEdit = target => {
+export const saveDriveAssEdit = (target) => {
 	//console.log('saveDriveAssEdit target: ', target);
 	return {
 		type: SAVE_DRIVEASS_EDIT,
@@ -120,7 +121,7 @@ export const saveDriveAssEdit = target => {
 	};
 };
 
-export const deleteDriveAss = target => {
+export const deleteDriveAss = (target) => {
 	return {
 		type: DELETE_DRIVEASS,
 		payload: target,
@@ -128,10 +129,10 @@ export const deleteDriveAss = target => {
 };
 
 export function checkDraft() {
-	return dispatch => {
+	return (dispatch) => {
 		//dispatch(setLoading(true));
 		axios
-			.get('http://192.168.1.107:8080/checkdraft')
+			.get(`${apiUrl}/checkdraft`)
 			.then(({ data }) => {
 				console.log('this is the data from checkdraft: ', data);
 				if (data.length > 0) {
@@ -141,16 +142,16 @@ export function checkDraft() {
 					});
 				}
 			})
-			.catch(err => console.log('Error in checkdraft: ', err))
+			.catch((err) => console.log('Error in checkdraft: ', err))
 			.then(() => dispatch(setLoading(false)));
 	};
 }
 
 export function onSubmitDrivememo(drivememo) {
-	return dispatch => {
+	return (dispatch) => {
 		dispatch(setLoading(true));
 		axios
-			.post('http://192.168.1.107:8080/adddrivememo', {
+			.post(`${apiUrl}/adddrivememo`, {
 				drivememo,
 			})
 			.then(({ data }) => {
@@ -170,7 +171,7 @@ export function onSubmitDrivememo(drivememo) {
 					});
 				}
 			})
-			.catch(err => {
+			.catch((err) => {
 				console.log('Error while submit: ', err);
 			})
 			.then(() => dispatch(setLoading(false)));

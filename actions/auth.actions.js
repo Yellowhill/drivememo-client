@@ -1,3 +1,4 @@
+import { apiUrl } from '../variables.js';
 import {
 	TOGGLE_LOADING,
 	LOGIN_SUCCESSFUL,
@@ -15,13 +16,7 @@ import { NavigationActions } from 'react-navigation';
 
 import { setLoading, updateUserInfo } from './general.actions.js';
 
-const navToAddDrivememo = NavigationActions.navigate({
-	routeName: 'AddDrivememo',
-});
-
-const navToRegister = NavigationActions.navigate({
-	routeName: 'Register',
-});
+import { navToAddDrivememo, navToRegister, navToLogin } from './navigation.actions.js';
 
 export function setLoginStatus(bool) {
 	return {
@@ -65,20 +60,20 @@ export function resetAuthInfo() {
 }
 
 export function navigateToRegister() {
-	return dispatch => dispatch(navToRegister);
+	return (dispatch) => dispatch(navToRegister);
 }
 
 export function login(email, password) {
-	return dispatch => {
+	return (dispatch) => {
 		console.log('calling login action creator', email, password);
 		dispatch(setLoading(true));
 
 		axios
-			.post('http://192.168.1.107:8080/login', {
+			.post(`${apiUrl}/login`, {
 				email,
 				password,
 			})
-			.then(data => {
+			.then((data) => {
 				console.log('login data: ', data);
 				dispatch(resetAuthInfo());
 				dispatch(
@@ -88,7 +83,7 @@ export function login(email, password) {
 				);
 				dispatch(navToAddDrivememo);
 			})
-			.catch(err => {
+			.catch((err) => {
 				console.log('error while login: ', err);
 				dispatch(setLoginStatus(false));
 				dispatch(setLoading(false));
@@ -96,18 +91,34 @@ export function login(email, password) {
 	};
 }
 
+export function logout() {
+	return (dispatch) => {
+		dispatch(setLoading(true));
+		axios
+			.get(`${apiUrl}/logout`)
+			.then((data) => {
+				dispatch(navToLogin);
+			})
+			.catch((err) => {
+				console.log('error while logout: ', err);
+				dispatch(setLoginStatus(false));
+				dispatch(setLoading(false));
+			});
+	};
+}
+
 export function register({ email, password, passwordConfirm }) {
-	return dispatch => {
+	return (dispatch) => {
 		console.log('calling register action creator');
 		dispatch(setLoading(true));
 
 		axios
-			.post('http://192.168.1.107:8080/register', {
+			.post(`${apiUrl}/register`, {
 				email,
 				password,
 				passwordConfirm,
 			})
-			.then(data => {
+			.then((data) => {
 				console.log('register data: ', data);
 				dispatch(resetAuthInfo());
 				dispatch(setRegisterStatus(true));
@@ -118,7 +129,7 @@ export function register({ email, password, passwordConfirm }) {
 				);
 				dispatch(navToAddDrivememo);
 			})
-			.catch(err => {
+			.catch((err) => {
 				console.log('error while register: ', err);
 				dispatch(setRegisterStatus(false));
 				dispatch(setLoading(false));
@@ -127,10 +138,10 @@ export function register({ email, password, passwordConfirm }) {
 }
 
 export function checkAuthAtStartUp() {
-	return dispatch => {
+	return (dispatch) => {
 		console.log('check checkAuthAtStartUp action called ');
 		axios
-			.get('http://192.168.1.107:8080/checkauth', { withCredentials: true })
+			.get(`${apiUrl}/checkauth`, { withCredentials: true })
 			.then(({ data }) => {
 				console.log('checkAuth data+++: ', data);
 				dispatch(
@@ -140,7 +151,7 @@ export function checkAuthAtStartUp() {
 				);
 				dispatch(navToAddDrivememo);
 			})
-			.catch(err => {
+			.catch((err) => {
 				console.log('checkauth error: ', err);
 				return dispatch({
 					type: UPDATE_USERINFO,

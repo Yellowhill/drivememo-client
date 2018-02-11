@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { BackHandler } from 'react-native';
 import RegisterForm from '../Blocks/LoginForm.js';
 
 import { connect } from 'react-redux';
@@ -14,17 +14,31 @@ import {
 import { Container, Content, Spinner } from 'native-base';
 
 class RegisterScreen extends React.Component {
-	handleEmailChange = email => {
+	componentWillMount = () => {
+		// const navigation = this.props.navigation;
+		// const that = this;
+		// BackHandler.addEventListener('hardwareBackPress', function() {
+		// 	console.log('RegisterScreen RegisterScreen', that);
+		// 	navigation.goBack();
+		// 	return true;
+		// });
+	};
+
+	componentWillUnmount = () => {
+		//BackHandler.removeEventListener();
+	};
+
+	handleEmailChange = (email) => {
 		//TODO email validation here
 		this.props.setEmail(email.trim());
 	};
 
-	handlePasswordChange = password => {
+	handlePasswordChange = (password) => {
 		//TODO password validation here
 		this.props.setPassword(password.trim());
 	};
 
-	handlePasswordConfirmChange = passwordConfirm => {
+	handlePasswordConfirmChange = (passwordConfirm) => {
 		//TODO password validation here
 		this.props.setPasswordConfirm(passwordConfirm.trim());
 	};
@@ -68,12 +82,17 @@ const mapStateToProps = ({ authReducer, generalReducer }) => ({
 	registerScreen: Object.assign({}, authReducer, generalReducer),
 });
 
-const mapDispatchToProps = dispatch => {
-	return {
-		setEmail: text => dispatch(setEmail(text)),
-		setPassword: text => dispatch(setPassword(text)),
-		setPasswordConfirm: text => dispatch(setPasswordConfirm(text)),
-		register: (email, password) => dispatch(register(email, password)),
-	};
-};
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen);
+// const mapDispatchToProps = (dispatch) => {
+// 	return {
+// 		setEmail: (text) => dispatch(setEmail(text)),
+// 		setPassword: (text) => dispatch(setPassword(text)),
+// 		setPasswordConfirm: (text) => dispatch(setPasswordConfirm(text)),
+// 		register: (email, password) => dispatch(register(email, password)),
+// 	};
+// };
+export default connect(mapStateToProps, {
+	register,
+	setEmail,
+	setPassword,
+	setPasswordConfirm,
+})(RegisterScreen);

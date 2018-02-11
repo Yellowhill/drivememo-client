@@ -121,20 +121,28 @@ function DriveAssignmentModal({
                 onChangeTab={onChangeTab}
             >
                 <Tab heading='Korttiajo' name='cardDrive'>
-                    <FormTextInput
-                        labelText='Hinta' 
-                        keyboardType='numeric'
-                        onChangeText={onChangeTextInput}
-                        onFocus = {() => onChangeActiveField('cardDrive')}
-                    />
+                    <StyledScrollView>
+                        <KeyboardAvoidingView behavior='position' contentContainerStyle={{paddingTop:-50}}>
+                            <FormTextInput
+                                labelText='Hinta' 
+                                keyboardType='numeric'
+                                onChangeText={onChangeTextInput}
+                                onFocus = {() => onChangeActiveField('cardDrive')}
+                            />
+                        </KeyboardAvoidingView>
+                    </StyledScrollView>
                 </Tab>
                 <Tab heading='Käteisajo' name='cashDrive'>
-                    <FormTextInput
-                        labelText='Hinta' 
-                        keyboardType='numeric' 
-                        onChangeText={onChangeTextInput}
-                        onFocus = {() => onChangeActiveField('cashDrive')}
-                    />
+                    <StyledScrollView>
+                        <KeyboardAvoidingView behavior='position' contentContainerStyle={{paddingTop:-50}}>
+                            <FormTextInput
+                                labelText='Hinta' 
+                                keyboardType='numeric' 
+                                onChangeText={onChangeTextInput}
+                                onFocus = {() => onChangeActiveField('cashDrive')}
+                            />
+                        </KeyboardAvoidingView>
+                    </StyledScrollView>
                 </Tab>
                 <Tab heading='Laskutettava' name='invoiceDrive'>
                     <StyledScrollView>

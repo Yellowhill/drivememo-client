@@ -34,7 +34,7 @@ const StyledModal = styled.Modal``;
 
 const ButtonContainer = styled.View`
 	height: 60px;
-	flexdirection: row-reverse;
+	flex-direction: row-reverse;
 `;
 
 const PickerContainer = styled(Picker)``;
@@ -105,7 +105,7 @@ function DriveAssignmentModal({
 									<FormTextInput
 										labelText="Asiakas"
 										value={driveAssEditTarget.invoiceClient}
-										onChangeText={value => updateEditTarget(value, 'invoiceClient')}
+										onChangeText={(value) => updateEditTarget(value, 'invoiceClient')}
 									/>
 									<View>
 										<PickerHeader>Valitse laskun saaja</PickerHeader>
@@ -113,7 +113,7 @@ function DriveAssignmentModal({
 											mode="dropdown"
 											placeholder="Laskunsaaja"
 											selectedValue={driveAssEditTarget.invoiceTarget}
-											onValueChange={value => updateEditTarget(value, 'invoiceTarget')}
+											onValueChange={(value) => updateEditTarget(value, 'invoiceTarget')}
 											textStyle={{
 												color: 'red',
 												backgroundColor: 'red',
@@ -141,7 +141,7 @@ function DriveAssignmentModal({
 								labelText="Hinta"
 								value={driveAssEditTarget.cost}
 								keyboardType="numeric"
-								onChangeText={value => updateEditTarget(value, 'cost')}
+								onChangeText={(value) => updateEditTarget(value, 'cost')}
 							/>
 						</KeyboardAvoidingView>
 					</StyledScrollView>
@@ -167,12 +167,12 @@ const mapStateToProps = ({ drivememoReducer, generalReducer }) => ({
 	addDrivememoScreen: Object.assign({}, drivememoReducer, generalReducer),
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
 	return {
 		updateEditTarget: (value, field) => dispatch(updateEditTarget(value, field)),
 		toggleDriveAssEdit: () => dispatch(toggleDriveAssEdit()),
-		saveDriveAssEdit: target => dispatch(saveDriveAssEdit(target)),
-		deleteDriveAss: target => dispatch(deleteDriveAss(target)),
+		saveDriveAssEdit: (target) => dispatch(saveDriveAssEdit(target)),
+		deleteDriveAss: (target) => dispatch(deleteDriveAss(target)),
 	};
 };
 

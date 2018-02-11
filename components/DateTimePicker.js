@@ -13,7 +13,7 @@ const StyledItem = styled(Item)`
 `;
 
 class DateTimePicker extends React.Component {
-	formatDateNumb = numb => (numb < 10 ? `0${numb}` : numb);
+	formatDateNumb = (numb) => (numb < 10 ? `0${numb}` : numb);
 
 	handleFocus = async () => {
 		const { name, onDateTimePick, onDatePickCancel, onTimePickCancel } = this.props;
@@ -41,13 +41,13 @@ class DateTimePicker extends React.Component {
 	render() {
 		const { label, name } = this.props;
 		return (
-			<StyledItem floatingLabel>
+			<StyledItem stackedLabel>
 				<Label>{label}</Label>
 				<Input
 					{...this.props}
 					name={name}
 					onFocus={this.handleFocus}
-					getRef={input => (this.dateInput = input)}
+					getRef={(input) => (this.dateInput = input)}
 				/>
 			</StyledItem>
 		);

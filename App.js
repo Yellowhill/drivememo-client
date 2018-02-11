@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { StyleProvider } from 'native-base';
+
 import { Provider } from 'react-redux';
 
 import { NavigationWithState } from './Navigation.js';
@@ -13,6 +15,7 @@ import { createLogger } from 'redux-logger';
 import RootReducer from './reducers/index.reducer.js';
 
 import Drivememo from './Blocks/Drivememo.js';
+
 import LoginScreen from './screens/login.screen.js';
 
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });

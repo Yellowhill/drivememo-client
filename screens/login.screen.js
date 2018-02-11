@@ -23,6 +23,7 @@ import {
 	FooterTab,
 	Spinner,
 	Button,
+	StyleProvider,
 } from 'native-base';
 
 import {
@@ -31,19 +32,42 @@ import {
 	View,
 	TouchableOpacity,
 	KeyboardAvoidingView,
+	BackHandler,
 } from 'react-native';
+
+import getTheme from '../native-base-theme/components';
+import material from '../native-base-theme/variables/material';
+
+import styled from 'styled-components/native';
+
+const StyledFooter = styled.TouchableOpacity`
+	flex-direction: row;
+	justify-content: center;
+`;
 
 class LoginScreen extends React.Component {
 	componentWillMount() {
-		console.log('loginscreen will mount pros: ', this.props);
+		const navigation = this.props.navigation;
+		//console.log('loginscreen WILL MOUNT: ', navigation);
+		// BackHandler.addEventListener('hardwareBackPress', function() {
+		// 	console.log('loginscreen WILL MOUNT: ', navigation);
+		// 	if (navigation.state.routeName === 'Login') {
+		// 		BackHandler.exitApp();
+		// 		return true;
+		// 	}
+		// });
 		this.props.checkAuthAtStartUp();
 	}
-	handleEmailChange = email => {
+	componentWillUnmount = () => {
+		console.log('LOGINSCREEN WILL UNMOUNT');
+		//BackHandler.removeEventListener('hardwareBackPress');
+	};
+	handleEmailChange = (email) => {
 		//TODO email validation here
 		this.props.setEmail(email.trim());
 	};
 
-	handlePasswordChange = password => {
+	handlePasswordChange = (password) => {
 		//TODO password validation here
 		this.props.setPassword(password.trim());
 	};
@@ -57,30 +81,33 @@ class LoginScreen extends React.Component {
 		console.log('loginscreen render this.props: ', this.props);
 		const { showPassword } = this.props.loginScreen;
 		return (
-			<Container>
-				<Content>
-					{this.props.loginScreen.loading ? (
-						<Spinner color="black" />
-					) : (
-						<LoginForm
-							onEmailChange={this.handleEmailChange}
-							onPasswordChange={this.handlePasswordChange}
-							showPassword={showPassword}
-							btnText="Kirjaudu"
-							onSubmit={this.handleSubmit}
-						/>
-					)}
-				</Content>
-				{!this.props.loginScreen.loading && (
-					<Footer>
-						<FooterTab>
-							<Button full onPress={() => this.props.navigateToRegister()}>
+			<StyleProvider style={getTheme(material)}>
+				<Container>
+					<Content>
+						{this.props.loginScreen.loading ? (
+							<Spinner color="black" />
+						) : (
+							<LoginForm
+								onEmailChange={this.handleEmailChange}
+								onPasswordChange={this.handlePasswordChange}
+								showPassword={showPassword}
+								btnText="Kirjaudu"
+								onSubmit={this.handleSubmit}
+							/>
+						)}
+					</Content>
+					{!this.props.loginScreen.loading && (
+						<StyledFooter>
+							<Button
+								transparent
+								onPress={() => this.props.navigation.navigate('Register')}
+							>
 								<Text>Rekisteröidy</Text>
 							</Button>
-						</FooterTab>
-					</Footer>
-				)}
-			</Container>
+						</StyledFooter>
+					)}
+				</Container>
+			</StyleProvider>
 		);
 	}
 }
@@ -89,18 +116,24 @@ const mapStateToProps = ({ authReducer, generalReducer }) => ({
 	loginScreen: Object.assign({}, authReducer, generalReducer),
 });
 
-const mapDispatchToProps = dispatch => {
-	//console.log('loginscreen dispatch: ', dispatch)
-	return {
-		//"login:" what we get as pros to this component
-		//login(email,password) - is from the actioncreator
-		checkAuthAtStartUp: () => dispatch(checkAuthAtStartUp()),
-		navigateToRegister: () => dispatch(navigateToRegister()),
-		setEmail: text => dispatch(setEmail(text)),
-		setPassword: text => dispatch(setPassword(text)),
-		login: (email, password) => dispatch(login(email, password)),
-	};
-};
+// const mapDispatchToProps = (dispatch) => {
+// 	//console.log('loginscreen dispatch: ', dispatch)
+// 	return {
+// 		//"login:" what we get as pros to this component
+// 		//login(email,password) - is from the actioncreator
+// 		checkAuthAtStartUp: () => dispatch(checkAuthAtStartUp()),
+// 		navigateToRegister: () => dispatch(navigateToRegister()),
+// 		setEmail: (text) => dispatch(setEmail(text)),
+// 		setPassword: (text) => dispatch(setPassword(text)),
+// 		login: (email, password) => dispatch(login(email, password)),
+// 	};
+//};
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+export default connect(mapStateToProps, {
+	login,
+	setEmail,
+	setPassword,
+	navigateToRegister,
+	checkAuthAtStartUp,
+})(LoginScreen);
 //export default loginForm;

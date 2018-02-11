@@ -9,10 +9,11 @@ const S_BlockButton = styled(Button)`
 	margin-bottom: 7px;
 `;
 
-export default props => {
+export default (props) => {
 	return (
 		<S_BlockButton
-			block
+			block={props.block}
+			bordered={props.bordered}
 			onPress={props.onPress}
 			accessibilityLabel={props.accessibilityLabel}
 		>
