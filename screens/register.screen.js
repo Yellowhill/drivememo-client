@@ -11,6 +11,8 @@ import {
 	setPasswordConfirm,
 } from '../actions/auth.actions.js';
 
+import { setLoading } from '../actions/general.actions.js';
+
 import { Container, Content, Spinner } from 'native-base';
 
 class RegisterScreen extends React.Component {
@@ -22,6 +24,10 @@ class RegisterScreen extends React.Component {
 		// 	navigation.goBack();
 		// 	return true;
 		// });
+	};
+
+	componentDidMount = () => {
+		this.props.setLoading(false);
 	};
 
 	componentWillUnmount = () => {
@@ -95,4 +101,5 @@ export default connect(mapStateToProps, {
 	setEmail,
 	setPassword,
 	setPasswordConfirm,
+	setLoading,
 })(RegisterScreen);

@@ -60,7 +60,7 @@ class AddDrivememoScreen extends React.Component {
 	}
 
 	handleChangeTextInput = (input) => {
-		const { activeDrivememoField } = this.props.addDrivememoScreen;
+		const { activeDrivememoField } = this.props;
 		this.props.onChangeDrivememoField({
 			field: activeDrivememoField,
 			input,
@@ -80,17 +80,13 @@ class AddDrivememoScreen extends React.Component {
 	};
 
 	handleAddDriveAssignment = () => {
-		const {
-			activeDrivememoField,
-			invoiceTarget,
-			invoiceClient,
-		} = this.props.addDrivememoScreen;
+		const { activeDrivememoField, invoiceTarget, invoiceClient } = this.props;
 
 		if (activeDrivememoField === 'invoiceDrive') {
 			const invoiceAssObj = {
 				entryTime: new Date(),
 				assType: activeDrivememoField,
-				cost: this.props.addDrivememoScreen[activeDrivememoField],
+				cost: this.props[activeDrivememoField],
 				invoiceTarget: invoiceTarget,
 				invoiceClient: invoiceClient,
 			};
@@ -99,7 +95,7 @@ class AddDrivememoScreen extends React.Component {
 			const assObj = {
 				entryTime: new Date(),
 				assType: activeDrivememoField,
-				cost: this.props.addDrivememoScreen[activeDrivememoField],
+				cost: this.props[activeDrivememoField],
 			};
 			this.props.addDriveAssignment(assObj);
 		}
@@ -109,14 +105,11 @@ class AddDrivememoScreen extends React.Component {
 	};
 
 	handleSubmit = () => {
-		const {
-			roadometerStartValue,
-			roadometerEndValue,
-		} = this.props.addDrivememoScreen.drivememoInfo;
+		const { roadometerStartValue, roadometerEndValue } = this.props.drivememoInfo;
 
-		console.log('iooooooooo: ', this.props.addDrivememoScreen.drivememoInfo);
+		console.log('iooooooooo: ', this.props.drivememoInfo);
 		this.props.onSubmitDrivememo(
-			Object.assign({}, this.props.addDrivememoScreen.drivememoInfo, {
+			Object.assign({}, this.props.drivememoInfo, {
 				totalMileage: roadometerEndValue - roadometerStartValue,
 			})
 		);
@@ -129,7 +122,7 @@ class AddDrivememoScreen extends React.Component {
 		this.drawer._root.open();
 	};
 	render() {
-		console.log('drivememo screen this: ', this);
+		//console.log('drivememo screen this: ', this);
 		return (
 			<Container style={{ backgroundColor: 'white' }}>
 				<Header>
@@ -146,11 +139,11 @@ class AddDrivememoScreen extends React.Component {
 					keyboardShouldPersistTaps="always"
 					style={{ paddingLeft: 7, paddingRight: 7 }}
 				>
-					{this.props.addDrivememoScreen.loading ? (
+					{this.props.loading ? (
 						<Spinner color="black" />
 					) : (
 						<Drivememo
-							{...this.props.addDrivememoScreen}
+							{...this.props}
 							onChangeTextInput={this.handleChangeTextInput}
 							onDateTimePick={this.handleDateTimePick}
 							onSubmit={this.handleSubmit}
@@ -170,7 +163,8 @@ class AddDrivememoScreen extends React.Component {
 }
 
 const mapStateToProps = ({ drivememoReducer, generalReducer }) => ({
-	addDrivememoScreen: Object.assign({}, drivememoReducer, generalReducer),
+	...drivememoReducer,
+	...generalReducer,
 });
 
 // const mapDispatchToProps = (dispatch) => {
@@ -207,4 +201,4 @@ export default connect(mapStateToProps, {
 	editDriveAss,
 	checkDraft,
 	toggleDriveAssEdit,
-})(ScreenContainerWrapper(AddDrivememoScreen));
+})(AddDrivememoScreen);

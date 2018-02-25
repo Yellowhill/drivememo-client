@@ -38,10 +38,10 @@ const initialState = {
 };
 
 const drivememo = (state = initialState, action) => {
-	console.log('drivememo reducers action: ', action);
+	//console.log('drivememo reducers action: ', action);
 	switch (action.type) {
 		case DRIVEMEMO_UPDATE: {
-			console.log('this is the payload++++++++++: ', action.payload);
+			//console.log('this is the payload++++++++++: ', action.payload);
 			return {
 				...state,
 				drivememoInfo: action.payload,
@@ -69,7 +69,7 @@ const drivememo = (state = initialState, action) => {
 			};
 
 		case SET_ACTIVE_FIELD:
-			console.log('in reducer SET_ACTIVE_FIELD: ', action.payload);
+			//console.log('in reducer SET_ACTIVE_FIELD: ', action.payload);
 			return {
 				...state,
 				activeDrivememoField: action.payload,

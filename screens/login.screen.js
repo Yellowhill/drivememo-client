@@ -78,7 +78,7 @@ class LoginScreen extends React.Component {
 	};
 
 	render() {
-		console.log('loginscreen render this.props: ', this.props);
+		//console.log('loginscreen render this.props: ', this.props);
 		const { showPassword } = this.props.loginScreen;
 		return (
 			<StyleProvider style={getTheme(material)}>

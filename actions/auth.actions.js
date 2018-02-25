@@ -1,6 +1,5 @@
 import { apiUrl } from '../variables.js';
 import {
-	TOGGLE_LOADING,
 	LOGIN_SUCCESSFUL,
 	REGISTER_SUCCESSFUL,
 	SET_EMAIL,
@@ -14,9 +13,14 @@ import axios from 'axios';
 
 import { NavigationActions } from 'react-navigation';
 
-import { setLoading, updateUserInfo } from './general.actions.js';
-
-import { navToAddDrivememo, navToRegister, navToLogin } from './navigation.actions.js';
+import { setLoading } from './general.actions.js';
+import { updateUserInfo } from './user.actions';
+import {
+	navToAddDrivememo,
+	navToRegister,
+	navToPostRegister,
+	navToLogin,
+} from './navigation.actions.js';
 
 export function setLoginStatus(bool) {
 	return {
@@ -127,7 +131,8 @@ export function register({ email, password, passwordConfirm }) {
 						userEmail: data.email,
 					})
 				);
-				dispatch(navToAddDrivememo);
+
+				dispatch(navToPostRegister);
 			})
 			.catch((err) => {
 				console.log('error while register: ', err);

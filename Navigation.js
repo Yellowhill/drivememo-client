@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SplashScreen from './screens/splash.screen.js';
 import LoginScreen from './screens/login.screen.js';
 import RegisterScreen from './screens/register.screen.js';
+import PostRegister from './screens/postRegister.screen.js';
 import ProfileScreen from './screens/profile.screen.js';
 import AddDrivememoScreen from './screens/addDrivememo.screen.js';
 import {
@@ -17,6 +18,8 @@ import { StyleProvider } from 'native-base';
 import getTheme from './native-base-theme/components';
 import material from './native-base-theme/variables/material';
 
+import ScreenContainerWrapper from './wrappers/screenContainer.wrapper.js';
+
 const routerConfig = {
 	Splash: {
 		screen: SplashScreen,
@@ -27,6 +30,9 @@ const routerConfig = {
 	},
 	Register: {
 		screen: RegisterScreen,
+	},
+	PostRegister: {
+		screen: PostRegister,
 	},
 	AddDrivememo: {
 		screen: AddDrivememoScreen,
@@ -73,7 +79,7 @@ class Navigation extends React.Component {
 	};
 
 	render() {
-		//console.log('Navigation is rendering')
+		console.log('Navigation is rendering', this);
 		return (
 			<StyleProvider style={getTheme(material)}>
 				<AppNavigator
@@ -81,6 +87,7 @@ class Navigation extends React.Component {
 						dispatch: this.props.dispatch,
 						state: this.props.nav,
 					})}
+					screenProps={{ onOpenDrawer: this.props.onOpenDrawer }}
 				/>
 			</StyleProvider>
 		);
@@ -94,4 +101,6 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export const NavigationWithState = connect(mapStateToProps)(Navigation);
+export const NavigationWithState = connect(mapStateToProps)(
+	ScreenContainerWrapper(Navigation)
+);

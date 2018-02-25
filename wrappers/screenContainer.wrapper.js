@@ -13,8 +13,9 @@ const StyledScreenContainer = styled.View`
 	width: 90%;
 	padding: 15px 10px 0 10px;
 `;
+
 const ScreenContainer = (WrappedScreen) =>
-	class diu extends React.Component {
+	class DrawerWrapper extends React.Component {
 		handleCloseDrawer = () => {
 			this.drawer._root.close();
 		};
@@ -24,6 +25,7 @@ const ScreenContainer = (WrappedScreen) =>
 		};
 
 		render() {
+			console.log('ScreenContainer*********** this', this);
 			return (
 				<Drawer
 					ref={(ref) => {

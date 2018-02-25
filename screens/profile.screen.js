@@ -23,15 +23,16 @@ import { setLoading } from '../actions/general.actions.js';
 import ScreenContainerWrapper from '../wrappers/screenContainer.wrapper.js';
 
 class ProfileScreen extends React.Component {
-	componentDidMount() {
+	componentWillMount() {
+		console.log('PROFILE SCREEN WILL MOUTN');
 		this.props.setLoading(false);
 	}
-
-	// componentWillReceiveProps(nextProps) {
-	// 	nextProps.loading && this.props.setLoading(false);
-	// }
+	componentWillUnMount() {
+		console.log('PROFILE SCREEN WILL UN----MOUTN');
+		this.props.setLoading(false);
+	}
 	render() {
-		console.log('profilepage this.props: ', this);
+		console.log('profilepage _render_ this.props: ', this);
 
 		if (this.props.loading) {
 			return <Spinner color="black" />;
@@ -40,7 +41,7 @@ class ProfileScreen extends React.Component {
 			<Container style={{ backgroundColor: 'white' }}>
 				<Header>
 					<Left style={{ marginTop: 14 }}>
-						<Button transparent onPress={() => this.props.onOpenDrawer()}>
+						<Button transparent onPress={() => this.props.screenProps.onOpenDrawer()}>
 							<Icon style={{ fontSize: 34 }} name="menu" />
 						</Button>
 					</Left>
@@ -78,6 +79,4 @@ const mapStateToProps = ({ generalReducer }) => ({
 	...generalReducer,
 });
 
-export default connect(mapStateToProps, { setLoading })(
-	ScreenContainerWrapper(ProfileScreen)
-);
+export default connect(mapStateToProps, { setLoading })(ProfileScreen);

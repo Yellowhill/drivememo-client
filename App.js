@@ -50,7 +50,7 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<Provider store={store}>
-				{this.state.loading ? <Text /> : <NavigationWithState />}
+				<NavigationWithState />
 			</Provider>
 		);
 	}
