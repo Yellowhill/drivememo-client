@@ -6,6 +6,7 @@ import DriveAssList from './DriveAssList.js';
 import DraftCheckbox from './DraftCheckbox.js';
 import TotalMileage from './TotalMileage.js';
 import StyledTitle from './StyledTitle.js';
+import PostRegisterSkipButton from './PostRegisterSkipButton.js';
 
 export {
 	FormRow,
@@ -16,4 +17,5 @@ export {
 	DraftCheckbox,
 	TotalMileage,
 	StyledTitle,
+	PostRegisterSkipButton,
 };

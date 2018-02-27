@@ -5,8 +5,8 @@ export default class componentName extends Component {
 		const navigation = this.props.navigation;
 
 		setTimeout(() => {
-			console.log('aaaaaa:', navigation);
-			navigation.navigate('Register');
+			console.log('navivation:', navigation);
+			navigation.navigate('PostRegister');
 		}, 500);
 	};
 

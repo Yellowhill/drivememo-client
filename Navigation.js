@@ -1,12 +1,12 @@
 import React from 'react';
 import { BackHandler } from 'react-native';
 import { connect } from 'react-redux';
-import SplashScreen from './screens/splash.screen.js';
-import LoginScreen from './screens/login.screen.js';
-import RegisterScreen from './screens/register.screen.js';
-import PostRegister from './screens/postRegister.screen.js';
-import ProfileScreen from './screens/profile.screen.js';
-import AddDrivememoScreen from './screens/addDrivememo.screen.js';
+import SplashScreen from './screens/Splash.screen.js';
+import LoginScreen from './screens/Login.screen.js';
+import RegisterScreen from './screens/Register.screen.js';
+import PostRegister from './screens/PostRegister.screen.js';
+import ProfileScreen from './screens/Profile.screen.js';
+import AddDrivememoScreen from './screens/AddDrivememo.screen.js';
 import {
 	StackNavigator,
 	addNavigationHelpers,

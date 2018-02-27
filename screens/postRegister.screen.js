@@ -1,4 +1,16 @@
 import React from 'react';
+import { View } from 'react-native';
+import {
+	Container,
+	Header,
+	Content,
+	Body,
+	Spinner,
+	Text,
+	Title,
+	Button,
+	Icon,
+} from 'native-base';
 import { BackHandler } from 'react-native';
 import PostRegisterForm from '../Blocks/PostRegisterForm.js';
 
@@ -10,26 +22,18 @@ import {
 	saveUserInfo,
 } from '../actions/user.actions.js';
 import { setLoading } from '../actions/general.actions.js';
-import {
-	Container,
-	Header,
-	Content,
-	Body,
-	Spinner,
-	Button,
-	Left,
-	Icon,
-	Separator,
-	ListItem,
-	Text,
-	Title,
-} from 'native-base';
+import { navToAddDrivememo } from '../actions/navigation.actions.js';
 
-import { StyledTitle, FormTextInput } from '../components/index.js';
+import {
+	StyledTitle,
+	FormTextInput,
+	PostRegisterSkipButton,
+} from '../components/index.js';
 
 class PostRegisterScreen extends React.Component {
 	componentWillMount = () => {
 		console.log('postRegister will mount', this);
+		console.log('postRegister will navToAddDrivememo', navToAddDrivememo);
 		// const navigation = this.props.navigation;
 		// const that = this;
 		// BackHandler.addEventListener('hardwareBackPress', function() {
@@ -62,25 +66,32 @@ class PostRegisterScreen extends React.Component {
 		});
 	};
 
+	handleSkipScreen = () => {
+		//this.props.navToAddDrivememo();
+		this.props.navigation.navigate('AddDrivememo');
+	};
 	render() {
 		console.log('postRegisterScreen render this.props: ', this);
 		return (
 			<Container>
 				<Header>
 					<Body>
-						<Title style={{ marginTop: 14 }}>Muistion tiedot</Title>
+						<Title style={{ marginTop: 14 }}>Profiilin lisätiedot</Title>
 					</Body>
 				</Header>
 				<Content>
 					{this.props.loading ? (
 						<Spinner color="black" />
 					) : (
-						<PostRegisterForm
-							onDriverNameChange={this.handleDriverNameChange}
-							onDriveMemoReceiverChange={this.handleDriveMemoReceiverChange}
-							btnText="Tallenna"
-							onSubmit={this.handleSubmit}
-						/>
+						<View>
+							<PostRegisterForm
+								onDriverNameChange={this.handleDriverNameChange}
+								onDriveMemoReceiverChange={this.handleDriveMemoReceiverChange}
+								btnText="Tallenna"
+								onSubmit={this.handleSubmit}
+							/>
+							<PostRegisterSkipButton onPress={this.handleSkipScreen} />
+						</View>
 					)}
 				</Content>
 			</Container>
@@ -98,4 +109,5 @@ export default connect(mapStateToProps, {
 	setDrivememoReceiverEmail,
 	saveUserInfo,
 	setLoading,
+	navToAddDrivememo,
 })(PostRegisterScreen);
