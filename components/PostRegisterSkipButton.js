@@ -12,7 +12,7 @@ const Container = styled.View`
     alignItems: center;
     margin-top: 100px;
 `;
-
+// prettier-ignore
 const Remark = styled(Text)`
 	margin-top: -14px;
 `;
