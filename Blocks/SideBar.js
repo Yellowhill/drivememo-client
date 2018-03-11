@@ -7,9 +7,16 @@ import { connect } from 'react-redux';
 import { Container, Content, List, ListItem, Text, Icon, Left, Body } from 'native-base';
 
 import { logout } from '../actions/auth.actions.js';
+import { setLoading } from '../actions/general.actions.js';
+import { navigateToProfile, navigateToAddDrivememo } from '../actions/sidebar.actions.js';
 
-function SideBar(props) {
+const SideBar = (props) => {
 	console.log('sidebar props: ', props);
+
+	const handleNavigation = (navFunc) => {
+		props.closeDrawer();
+		navFunc();
+	};
 	return (
 		<Container>
 			<Content style={{ backgroundColor: 'white', paddingTop: 50 }}>
@@ -19,7 +26,9 @@ function SideBar(props) {
 							<Icon name="person" />
 						</Left>
 						<Body>
-							<TouchableOpacity onPress={() => props.navigation.navigate('AddDrivememo')}>
+							<TouchableOpacity
+								onPress={() => handleNavigation(props.navigateToAddDrivememo)}
+							>
 								<Text>Lisää ajomuistio</Text>
 							</TouchableOpacity>
 						</Body>
@@ -29,7 +38,7 @@ function SideBar(props) {
 							<Icon name="person" />
 						</Left>
 						<Body>
-							<TouchableOpacity onPress={() => props.navigation.navigate('Profile')}>
+							<TouchableOpacity onPress={() => handleNavigation(props.navigateToProfile)}>
 								<Text>Profiili</Text>
 							</TouchableOpacity>
 						</Body>
@@ -58,10 +67,18 @@ function SideBar(props) {
 			</Content>
 		</Container>
 	);
-}
+};
 
-const mapStateToProps = ({ authReducer, generalReducer }) => ({
-	sideBar: Object.assign({}, authReducer, generalReducer),
-});
+const mapStateToProps = ({ authReducer, generalReducer }) => {
+	return {
+		...generalReducer,
+		...authReducer,
+	};
+};
 
-export default connect(mapStateToProps, { logout })(SideBar);
+export default connect(mapStateToProps, {
+	logout,
+	navigateToProfile,
+	navigateToAddDrivememo,
+	setLoading,
+})(SideBar);

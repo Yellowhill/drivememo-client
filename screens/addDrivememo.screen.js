@@ -52,7 +52,7 @@ class AddDrivememoScreen extends React.Component {
 
 	componentDidMount() {
 		console.log('addDrivememo.screen.js MOUNTED');
-		//his.props.setLoading(false);
+		this.props.setLoading(false);
 	}
 
 	componentWillUnmount() {
@@ -122,12 +122,12 @@ class AddDrivememoScreen extends React.Component {
 		this.drawer._root.open();
 	};
 	render() {
-		//console.log('drivememo screen this: ', this);
+		console.log('drivememo screen this: ', this);
 		return (
 			<Container style={{ backgroundColor: 'white' }}>
 				<Header>
 					<Left style={{ marginTop: 14 }}>
-						<Button transparent onPress={() => this.props.onOpenDrawer()}>
+						<Button transparent onPress={() => this.props.screenProps.onOpenDrawer()}>
 							<Icon style={{ fontSize: 34 }} name="menu" />
 						</Button>
 					</Left>
@@ -201,4 +201,5 @@ export default connect(mapStateToProps, {
 	editDriveAss,
 	checkDraft,
 	toggleDriveAssEdit,
+	setLoading,
 })(AddDrivememoScreen);

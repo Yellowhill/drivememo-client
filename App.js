@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { AppLoading } from 'expo';
 import { StyleProvider } from 'native-base';
-
 import { Provider } from 'react-redux';
 
 import { NavigationWithState } from './Navigation.js';
@@ -16,8 +16,10 @@ import RootReducer from './reducers/index.reducer.js';
 
 import Drivememo from './Blocks/Drivememo.js';
 
-import LoginScreen from './screens/login.screen.js';
+import LoginScreen from './screens/Login.screen.js';
 
+import { navMiddleware } from './Navigation.js';
+import { composeWithDevTools } from 'redux-devtools-extension';
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ });
 
 // function confStore(initialState) {
@@ -30,27 +32,34 @@ const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__
 //   return createStore(RootReducer, initialState, enhancer);
 // }
 
-const store = createStore(RootReducer, applyMiddleware(thunk, loggerMiddleware));
+const store = createStore(
+	RootReducer,
+	composeWithDevTools(applyMiddleware(navMiddleware, thunk, loggerMiddleware))
+);
 
 export default class App extends React.Component {
 	state = {
 		loading: true,
 	};
 
-	async componentWillMount() {
+	loadFonts = async () => {
 		await Expo.Font.loadAsync({
 			Roboto: require('native-base/Fonts/Roboto.ttf'),
 			Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
 		});
-		this.setState({
-			loading: false,
-		});
-	}
-
+	};
 	render() {
 		return (
 			<Provider store={store}>
-				<NavigationWithState />
+				{this.state.loading ? (
+					<AppLoading
+						startAsync={this.loadFonts}
+						onFinish={() => this.setState({ loading: false })}
+						onError={console.warn}
+					/>
+				) : (
+					<NavigationWithState />
+				)}
 			</Provider>
 		);
 	}

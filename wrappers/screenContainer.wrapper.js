@@ -31,7 +31,7 @@ const ScreenContainer = (WrappedScreen) =>
 					ref={(ref) => {
 						this.drawer = ref;
 					}}
-					content={<SideBar navigation={this.props.navigation} />}
+					content={<SideBar closeDrawer={this.handleCloseDrawer} />}
 					onClose={() => this.handleCloseDrawer()}
 				>
 					<WrappedScreen onOpenDrawer={this.handleOpenDrawer} {...this.props} />

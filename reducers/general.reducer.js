@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
 		case TOGGLE_LOADING:
 			return {
 				...state,
-				loading: !state.loading,
+				loading: action.payload,
 			};
 		default:
 			return state;

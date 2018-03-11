@@ -1,5 +1,4 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 
