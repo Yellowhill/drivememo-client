@@ -17,21 +17,24 @@ class DateTimePicker extends React.Component {
 
 	handleFocus = async () => {
 		const { name, onDateTimePick, onDatePickCancel, onTimePickCancel } = this.props;
-
-		const { action, year, month, day } = await DatePickerAndroid.open();
-		if (action !== 'dismissedAction') {
-			const { action, hour, minute } = await TimePickerAndroid.open();
+		try {
+			const { action, year, month, day } = await DatePickerAndroid.open();
 			if (action !== 'dismissedAction') {
-				const minuteFormated = minute < 10 ? `0${minute}` : minute;
-				onDateTimePick({
-					field: name,
-					dateTimeStr: `${year}-${this.formatDateNumb(month + 1)}-${this.formatDateNumb(
-						day
-					)}T${this.formatDateNumb(hour)}:${this.formatDateNumb(minute)}`,
-				});
+				const { action, hour, minute } = await TimePickerAndroid.open();
+				if (action !== 'dismissedAction') {
+					const minuteFormated = minute < 10 ? `0${minute}` : minute;
+					onDateTimePick({
+						field: name,
+						dateTimeStr: `${year}-${this.formatDateNumb(month + 1)}-${this.formatDateNumb(
+							day
+						)}T${this.formatDateNumb(hour)}:${this.formatDateNumb(minute)}`,
+					});
+				}
 			}
+			this.blurInput();
+		} catch (error) {
+			console.log('Error in DateTimePicker-component: ', error);
 		}
-		this.blurInput();
 	};
 
 	blurInput = () => {
@@ -47,7 +50,7 @@ class DateTimePicker extends React.Component {
 					{...this.props}
 					name={name}
 					onFocus={this.handleFocus}
-					getRef={(input) => (this.dateInput = input)}
+					ref={(input) => (this.dateInput = input)}
 				/>
 			</StyledItem>
 		);

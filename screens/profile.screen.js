@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+
+import { View, TouchableOpacity, ToastAndroid } from 'react-native';
 import { connect } from 'react-redux';
 
 import {
@@ -28,10 +29,6 @@ class ProfileScreen extends React.Component {
 		receiverEmail: '',
 	};
 
-	componentWillMount() {
-		console.log('PROFILE SCREEN WILL MOUTN');
-	}
-
 	componentWillUnMount() {
 		console.log('PROFILE SCREEN WILL UN----MOUTN');
 	}
@@ -58,9 +55,19 @@ class ProfileScreen extends React.Component {
 				name: userName,
 				receiverEmail,
 			});
+			this.setState({
+				stateUserEmail: userEmail,
+				stateUserName: userName,
+				stateReceiverEmail: receiverEmail,
+			});
+			return;
 		}
 
-		console.log('cant be empty');
+		ToastAndroid.showWithGravity(
+			'Kaikissa kentissä täytyy olla arvo',
+			ToastAndroid.LONG,
+			ToastAndroid.TOP
+		);
 	};
 
 	render() {
@@ -73,6 +80,7 @@ class ProfileScreen extends React.Component {
 			userName !== stateUserName ||
 			receiverEmail !== stateReceiverEmail;
 
+		console.log('ENABLESAVE: ', enableSave);
 		return (
 			<Container style={{ backgroundColor: 'white' }}>
 				<Header>

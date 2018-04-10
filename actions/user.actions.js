@@ -1,3 +1,4 @@
+import { ToastAndroid } from 'react-native';
 import axios from 'axios';
 
 import { apiUrl } from '../variables.js';
@@ -30,11 +31,22 @@ export function saveUserInfo(user) {
 					})
 				);
 				dispatch(setLoading(false));
+
+				ToastAndroid.showWithGravity(
+					'Tallennus onnistui!',
+					ToastAndroid.LONG,
+					ToastAndroid.TOP
+				);
 				//dispatch(navToAddDrivememo);
 			})
 			.catch((error) => {
 				console.log('Error while updating user info: ', error);
 				dispatch(setLoading(false));
+				ToastAndroid.showWithGravity(
+					'Tallennus epäonnistui!',
+					ToastAndroid.LONG,
+					ToastAndroid.TOP
+				);
 			});
 	};
 }

@@ -1,6 +1,6 @@
 import { apiUrl } from '../variables.js';
 import axios from 'axios';
-
+import { ToastAndroid } from 'react-native';
 import {
 	ADD_DRIVE_ASSIGNMENT,
 	SET_ACTIVE_FIELD,
@@ -177,9 +177,19 @@ export function onSubmitDrivememo(drivememo) {
 						payload: data,
 					});
 				}
+				ToastAndroid.showWithGravity(
+					'Tallennus onnistui!',
+					ToastAndroid.LONG,
+					ToastAndroid.TOP
+				);
 			})
 			.catch((err) => {
 				console.log('Error while submit: ', err);
+				ToastAndroid.showWithGravity(
+					'Tallennus epäonnistui!',
+					ToastAndroid.LONG,
+					ToastAndroid.TOP
+				);
 			})
 			.then(() => dispatch(setLoading(false)));
 	};
