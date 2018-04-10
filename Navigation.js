@@ -1,11 +1,12 @@
 import React from 'react';
 import { BackHandler } from 'react-native';
 import { connect, Provider } from 'react-redux';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+
 import {
 	createReduxBoundAddListener,
 	createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers';
+
 import {
 	StackNavigator,
 	addNavigationHelpers,
@@ -73,7 +74,7 @@ export const navMiddleware = createReactNavigationReduxMiddleware(
 );
 const addListener = createReduxBoundAddListener('root');
 
-class Navigation extends React.Component {
+export default class Navigation extends React.Component {
 	componentDidMount() {
 		BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
 	}

@@ -14,12 +14,13 @@ import axios from 'axios';
 import { NavigationActions } from 'react-navigation';
 
 import { setLoading } from './general.actions.js';
-import { updateUserInfo } from './user.actions';
+import { updateSessionUserInfo } from './user.actions';
 import {
 	navToAddDrivememo,
 	navToRegister,
 	navToPostRegister,
 	navToLogin,
+	navToProfile,
 } from './navigation.actions.js';
 
 export function setLoginStatus(bool) {
@@ -77,12 +78,14 @@ export function login(email, password) {
 				email,
 				password,
 			})
-			.then((data) => {
+			.then(({ data }) => {
 				console.log('login data: ', data);
 				dispatch(resetAuthInfo());
 				dispatch(
-					updateUserInfo({
+					updateSessionUserInfo({
 						userEmail: data.email,
+						userName: data.name,
+						receiverEmail: data.receiverEmail,
 					})
 				);
 				dispatch(navToAddDrivememo);
@@ -127,7 +130,7 @@ export function register({ email, password, passwordConfirm }) {
 				dispatch(resetAuthInfo());
 				dispatch(setRegisterStatus(true));
 				dispatch(
-					updateUserInfo({
+					updateSessionUserInfo({
 						userEmail: data.email,
 					})
 				);
@@ -150,14 +153,17 @@ export function checkAuthAtStartUp() {
 			.then(({ data }) => {
 				console.log('checkAuth data+++: ', data);
 				dispatch(
-					updateUserInfo({
+					updateSessionUserInfo({
 						userEmail: data.email,
+						userName: data.name,
+						receiverEmail: data.receiverEmail,
 					})
 				);
-				dispatch(navToAddDrivememo);
+				dispatch(navToProfile);
 			})
 			.catch((err) => {
 				console.log('checkauth error: ', err);
+				dispatch(setLoading(false));
 				return dispatch({
 					type: UPDATE_USERINFO,
 					payload: {

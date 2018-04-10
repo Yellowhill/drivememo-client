@@ -1,11 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { AppLoading } from 'expo';
 import { StyleProvider } from 'native-base';
 import { Provider } from 'react-redux';
 
 import { NavigationWithState } from './Navigation.js';
-//console.log('this be the navigation with state: ', NavigationWithState)
+
+console.log('this be the navigation with state: ', NavigationWithState);
+
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 
 import thunk from 'redux-thunk';

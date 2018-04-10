@@ -131,7 +131,7 @@ export default {
 	// Header
 	toolbarBtnColor: '#fff',
 	toolbarDefaultBg: platform === 'ios' ? '#F8F8F8' : '#fb8c00',
-	toolbarHeight: platform === 'ios' ? (isIphoneX ? 88 : 64) : 76,
+	toolbarHeight: platform === 'ios' ? (isIphoneX ? 88 : 64) : 56,
 	toolbarSearchIconSize: platform === 'ios' ? 20 : 23,
 	toolbarInputColor: '#fff',
 	searchBarHeight: platform === 'ios' ? 30 : 40,

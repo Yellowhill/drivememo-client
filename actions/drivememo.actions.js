@@ -17,6 +17,7 @@ import {
 	SAVE_DRIVEASS_EDIT,
 	DELETE_DRIVEASS,
 	DRIVEMEMO_UPDATE,
+	TOGGLE_DRIVEMEMO_DRAFT,
 } from './actionTypes.js';
 
 import { setLoading } from './general.actions.js';
@@ -34,6 +35,12 @@ export function onChangeActiveField(field) {
 	return {
 		type: SET_ACTIVE_FIELD,
 		payload: field,
+	};
+}
+
+export function toggleDrivememoDraft() {
+	return {
+		type: TOGGLE_DRIVEMEMO_DRAFT,
 	};
 }
 

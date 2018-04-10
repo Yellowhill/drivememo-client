@@ -6,7 +6,7 @@ export default class componentName extends Component {
 
 		setTimeout(() => {
 			console.log('navivation:', navigation);
-			navigation.navigate('Profile');
+			navigation.navigate('Login');
 		}, 500);
 	};
 

@@ -20,6 +20,7 @@ import {
 
 import { setLoading } from '../actions/general.actions.js';
 import Styled from 'styled-components/native';
+
 import {
 	addDriveAssignment,
 	onChangeActiveField,
@@ -33,6 +34,7 @@ import {
 	editDriveAss,
 	checkDraft,
 	toggleDriveAssEdit,
+	toggleDrivememoDraft,
 } from '../actions/drivememo.actions.js';
 
 import { StyledTitle } from '../components/index.js';
@@ -126,7 +128,7 @@ class AddDrivememoScreen extends React.Component {
 		return (
 			<Container style={{ backgroundColor: 'white' }}>
 				<Header>
-					<Left style={{ marginTop: 14 }}>
+					<Left style={{ marginTop: 18 }}>
 						<Button transparent onPress={() => this.props.screenProps.onOpenDrawer()}>
 							<Icon style={{ fontSize: 34 }} name="menu" />
 						</Button>
@@ -195,6 +197,7 @@ export default connect(mapStateToProps, {
 	onSubmitDrivememo,
 	onChangeDrivememoDateTimeField,
 	toggleDriveAssModal,
+	toggleDrivememoDraft,
 	invoiceTargetChange,
 	invoiceClientInput,
 	onResetActiveFields,

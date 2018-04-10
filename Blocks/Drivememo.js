@@ -38,6 +38,7 @@ function Drivememo(props) {
 			? roadometerEndValue - roadometerStartValue
 			: '';
 
+	console.log('drivememo blooock props: ', props);
 	return (
 		<KeyboardAvoidingView
 			keyboardShouldPersistTaps={'handled'}

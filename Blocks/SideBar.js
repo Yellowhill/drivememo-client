@@ -58,7 +58,7 @@ const SideBar = (props) => {
 							<Icon name="log-out" />
 						</Left>
 						<Body>
-							<TouchableOpacity onPress={props.logout}>
+							<TouchableOpacity onPress={() => handleNavigation(props.logout)}>
 								<Text>Kirjaudu ulos</Text>
 							</TouchableOpacity>
 						</Body>

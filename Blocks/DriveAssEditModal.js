@@ -147,14 +147,14 @@ function DriveAssignmentModal({
 					</StyledScrollView>
 
 					<ButtonContainer>
-						<FlexButton onPress={() => saveDriveAssEdit(driveAssEditTarget)}>
-							<Text>Tallenna</Text>
-						</FlexButton>
-						<FlexButton onPress={() => deleteDriveAss(driveAssEditTarget)}>
+						<FlexButton bordered onPress={() => deleteDriveAss(driveAssEditTarget)}>
 							<Text>Poista</Text>
 						</FlexButton>
 						<FlexButton onPress={toggleDriveAssEdit}>
 							<Text>Peruuta</Text>
+						</FlexButton>
+						<FlexButton onPress={() => saveDriveAssEdit(driveAssEditTarget)}>
+							<Text>Tallenna</Text>
 						</FlexButton>
 					</ButtonContainer>
 				</Content>

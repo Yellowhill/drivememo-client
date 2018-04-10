@@ -16,11 +16,7 @@ import PostRegisterForm from '../Blocks/PostRegisterForm.js';
 
 import { connect } from 'react-redux';
 
-import {
-	setUserName,
-	setDrivememoReceiverEmail,
-	saveUserInfo,
-} from '../actions/user.actions.js';
+import { updateSessionUserInfo, saveUserInfo } from '../actions/user.actions.js';
 import { setLoading } from '../actions/general.actions.js';
 import { navToAddDrivememo } from '../actions/navigation.actions.js';
 
@@ -49,12 +45,14 @@ class PostRegisterScreen extends React.Component {
 
 	handleDriverNameChange = (name) => {
 		//TODO name validation here
-		this.props.setUserName(name.trim());
+		this.props.updateSessionUserInfo({ userName: name.trim() });
 	};
 
 	handleDriveMemoReceiverChange = (receiverEmail) => {
 		//TODO password validation here
-		this.props.setDrivememoReceiverEmail(receiverEmail.trim().toLowerCase());
+		this.props.updateSessionUserInfo({
+			receiverEmail: receiverEmail.trim().toLowerCase(),
+		});
 	};
 
 	handleSubmit = () => {
@@ -105,8 +103,7 @@ const mapStateToProps = ({ userReducer, generalReducer }) => ({
 });
 
 export default connect(mapStateToProps, {
-	setUserName,
-	setDrivememoReceiverEmail,
+	updateSessionUserInfo,
 	saveUserInfo,
 	setLoading,
 	navToAddDrivememo,

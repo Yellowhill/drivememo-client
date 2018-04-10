@@ -131,7 +131,7 @@ const DriveAssList = ({ driveAssignments, onRowPress, toggleDriveAssModal }) => 
 			<FlatList
 				data={driveAssignments}
 				renderItem={(item) => renderRow(item)}
-				keyExtractor={(item, index) => index}
+				keyExtractor={(item, index) => index.toString()}
 				onRowPress={onRowPress}
 			/>
 		</Container>

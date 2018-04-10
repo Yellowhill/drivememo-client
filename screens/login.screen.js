@@ -16,6 +16,8 @@ import {
 	checkAuthAtStartUp,
 } from '../actions/auth.actions.js';
 
+import { setLoading } from '../actions/general.actions.js';
+
 import {
 	Container,
 	Content,
@@ -62,6 +64,7 @@ class LoginScreen extends React.Component {
 		console.log('LOGINSCREEN WILL UNMOUNT');
 		//BackHandler.removeEventListener('hardwareBackPress');
 	};
+
 	handleEmailChange = (email) => {
 		//TODO email validation here
 		this.props.setEmail(email.trim());
@@ -72,19 +75,19 @@ class LoginScreen extends React.Component {
 		this.props.setPassword(password.trim());
 	};
 	handleSubmit = () => {
-		const { email, password } = this.props.loginScreen;
+		const { email, password } = this.props;
 		console.log('HANDLE SUBMIT', email, password);
-		this.props.login(email, password);
+		this.props.login(email.toLowerCase(), password);
 	};
 
 	render() {
 		//console.log('loginscreen render this.props: ', this.props);
-		const { showPassword } = this.props.loginScreen;
+		const { showPassword } = this.props;
 		return (
 			<StyleProvider style={getTheme(material)}>
 				<Container>
 					<Content>
-						{this.props.loginScreen.loading ? (
+						{this.props.loading ? (
 							<Spinner color="black" />
 						) : (
 							<LoginForm
@@ -96,7 +99,7 @@ class LoginScreen extends React.Component {
 							/>
 						)}
 					</Content>
-					{!this.props.loginScreen.loading && (
+					{!this.props.loading && (
 						<StyledFooter>
 							<Button
 								transparent
@@ -113,7 +116,8 @@ class LoginScreen extends React.Component {
 }
 
 const mapStateToProps = ({ authReducer, generalReducer }) => ({
-	loginScreen: Object.assign({}, authReducer, generalReducer),
+	...authReducer,
+	...generalReducer,
 });
 
 // const mapDispatchToProps = (dispatch) => {
@@ -135,5 +139,6 @@ export default connect(mapStateToProps, {
 	setPassword,
 	navigateToRegister,
 	checkAuthAtStartUp,
+	setLoading,
 })(LoginScreen);
 //export default loginForm;
